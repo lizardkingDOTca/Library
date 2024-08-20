@@ -10,31 +10,36 @@ ul.search-results {
 }
 
 .item-summary {
-    margin-bottom: 0.5rem;
+    margin-bottom: 3rem;
 
     img {
-      width: 30px;
-      height: 30px;
+      width: 55px;
+      max-height: 55px;
       position: absolute;
     }
 
     h4 {
-      font-weight: 300;
-      margin: 0 0 0 40px;
+      margin: 0 0 4px 75px;
+      font-size: 15pt;
 
       a {
         color: #333;
 
         &:hover {
-          color: #4fc1e9;
+          color: #0091ea;
         }
       }
     }
 
     .faint {
       color: #666;
-      margin: 0 0 0 40px;
-      font-size: 0.6rem;
+      margin: 0 0 0 75px;
+
+      p {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
 
       strong {
         color: #3bafda;

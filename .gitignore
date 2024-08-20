@@ -2,6 +2,7 @@ node_modules/
 dist/
 build/
 app/services/*.json
+integrations/
 .idea/
 
 junitresults.xml
@@ -10,3 +11,6 @@ scriptcs_packages.config
 
 step-templates/*.ps1
 step-templates/*.sh
+step-templates/*.py
+/.vs
+!.vscode

@@ -33,21 +33,24 @@ Here's a **checklist** to consider:
 * Is the `.json` filename consistent with the name of the template?
 * Do scripts in the template validate required arguments and fail by returning a non-zero exit code when things go wrong?
 * Do scripts in the template produce worthwhile status messages as they execute?
-* Are you happy to contribute your template under the terms of the [license](https://github.com/OctopusDeploy/Library/blob/master/LICENSE)? If you produced the template while working for your employer please obtain written permission from them before submitting it here.
+* Are you happy to contribute your template under the terms of the [license](https://github.com/OctopusDeploy/Library/blob/master/LICENSE.txt)? If you produced the template while working for your employer please obtain written permission from them before submitting it here.
 * Are the default values of parameters validly applicable in other user's environments? Don't use the default values as examples if the user will have to change them
-* For how to deal with parameters and testing take a look at the article [Making great Octopus PowerShell step templates](http://www.lavinski.me/making-great-octopus-powershell-step-templates/)
+* For how to deal with parameters and testing take a look at the article [Making great Octopus PowerShell step templates](https://www.daniellittle.xyz/making-great-octopus-powershell-step-templates/)
 * For another example of how to test your step template script body before submitting a PR take a look at this [gist](https://gist.github.com/JCapriotti/45639e06ba777ee974b1)
+* Does the step template require extra software to work?  If possible, include the download logic in the step template itself.  If that is not possible, add the instructions to the `Description` field in the step template.
+* Does the step template "just work?" In other words, after the initial scaffolding (installing a CLI for example), could anyone run the step template in a deployment and have it perform the desired action?  Or, would a person need to dig into the step template to find out how it works?  Does someone need to manually perform additional steps post-deployment to fully utilize the functionality?
 
 If you need help, feedback or a sanity check before investing time in a contribution, feel free to raise an issue on the tracker to discuss your idea first.
 
 Licensing
 ---------
 
-The entire library is covered by [this Apache 2.0 license](LICENSE). [This site](http://choosealicense.com/licenses/apache-2.0/) provides a good explanation of what this license provides for you as a contributor. By contributing to this library:
+The entire library is covered by [this Apache 2.0 license](https://github.com/OctopusDeploy/Library/blob/master/LICENSE.txt). [This site](http://choosealicense.com/licenses/apache-2.0/) provides a good explanation of what this license provides for you as a contributor. By contributing to this library:
 
-* your contribution is automatically covered by [this Apache 2.0 license](LICENSE) without requiring a header in each file
-* your contribution is attributed to you (and your organisation) via commits and pull-requests
-* state changes are tracked automatically via commits and pull-requests
+* You will be asked to sign our [Contributor License Agreement (CLA)](https://en.wikipedia.org/wiki/Contributor_License_Agreement) which at the time of writing was [v1.0](https://gist.github.com/PaulStovell/568affdef31fda72d4302615ae9bcbe2). This basically allows us to accept your contribution for which you are claiming full ownership, and then relicense it under [this Apache 2.0 license](https://github.com/OctopusDeploy/Library/blob/master/LICENSE.txt). We cannot accept your contribution without your consent, nor share it with anyone else.
+* Your contribution is automatically covered by [this Apache 2.0 license](https://github.com/OctopusDeploy/Library/blob/master/LICENSE.txt) without requiring a header in each file.
+* Your contribution is attributed to you (and your organisation) via commits and pull-requests.
+* State changes are tracked automatically via commits and pull-requests.
 
 Contributing to the website
 ---------------------------
@@ -58,16 +61,12 @@ We also accept contributions to improve the [library.octopusdeploy.com](http://l
 
 ##### Pre-requisites
 
-To build the library site you need to have `nodejs` installed on your system. If you don't already have `gulp` installed globally, run the following:
+To build the library site you need to have `nodejs` installed on your system.
+
+Run the setup job to install `gulp` globally and install the npm dependencies:
 
 ```
-npm install -g gulp
-```
-
-Once you have `gulp` installed, run the below command from the root of the repository to install the build and runtime dependencies:
-
-```
-npm install
+npm run setup
 ```
 
 Congratulations, you are now ready to build and test the site locally.
@@ -77,13 +76,14 @@ Congratulations, you are now ready to build and test the site locally.
 From the root of the repository, run the following command: 
 
 ```
-gulp
+gulp build
 ```
 
 This will build a debuggable version of the library site and output it to `./build/`. To test the site, run the following command:
 
 ```
-node build/server.js
+cd build
+node server.js
 ```
 
 This will start the `express` server and you can browse the site at the following URL `http://localhost:9000`. 
@@ -105,7 +105,20 @@ gulp --production
 This will minify/uglify/concat the js/css files and output it to `./dist/`. To test the site, run the following command:
 
 ```
+cd dist
 node dist/server.js
 ```
 
 Once you are happy with your changes, push them to your fork and create a pull request from the GitHub site.
+
+### Code Cleanup
+To keep everything nice and tidy, [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) are used to enforce a consistent code styling throughout the project. If you are using VSCode, install the ESLint extension and make sure the following setting is enabled:
+```
+{
+  "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+  }
+}
+```
+
+You can also run `npm run lint:fix` to solve any errors and warnings.
